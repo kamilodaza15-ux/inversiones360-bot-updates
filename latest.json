@@ -1,0 +1,10 @@
+{
+  "version": "1.3.1",
+  "notes": "Sincroniza también main.js, index.html y app.js con las funciones nuevas (video, links de API, cerrar bot)",
+  "files": {
+    "server.js": "https://raw.githubusercontent.com/kamilodaza15-ux/inversiones360-bot-updates/main/server.js",
+    "main.js": "https://raw.githubusercontent.com/kamilodaza15-ux/inversiones360-bot-updates/main/main.js",
+    "public/index.html": "https://raw.githubusercontent.com/kamilodaza15-ux/inversiones360-bot-updates/main/index.html",
+    "public/app.js": "https://raw.githubusercontent.com/kamilodaza15-ux/inversiones360-bot-updates/main/app.js"
+  }
+}

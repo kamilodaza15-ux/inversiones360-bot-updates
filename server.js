@@ -13,9 +13,9 @@ const { Client, LocalAuth, MessageMedia } = require('whatsapp-web.js');
 // a tu repo de GitHub, y 2) subes el número de "version" en latest.json para
 // que coincida con el que pongas aquí abajo (CURRENT_VERSION). El botón del
 // panel compara ambos números para saber si hay algo nuevo.
-const CURRENT_VERSION = '1.3.1';
+const CURRENT_VERSION = '1.5.0';
 const UPDATE_MANIFEST_URL =
-  'https://raw.githubusercontent.com/kamilodaza15-ux/inversiones360-bot-updates/main/latest.json';
+  'https://raw.githubusercontent.com/kamilodaza15-ux/inversiones360-app/main/latest.json';
 
 const app = express();
 const server = http.createServer(app);

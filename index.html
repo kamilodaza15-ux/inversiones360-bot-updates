@@ -82,13 +82,26 @@
         <input id="cfg-groqApiKey" type="text" placeholder="gsk_..." />
         <p class="hint small">¿No tienes clave de Groq? <a href="https://console.groq.com/keys" target="_blank" rel="noopener">Consíguela gratis aquí</a> (Groq → API Keys → Create API Key).</p>
         <label>Modelo de Groq</label>
-        <input id="cfg-groqModel" type="text" />
+        <select id="cfg-groqModel">
+          <option value="openai/gpt-oss-20b">openai/gpt-oss-20b (recomendado: rápido y barato)</option>
+          <option value="openai/gpt-oss-120b">openai/gpt-oss-120b (más potente, más lento)</option>
+          <option value="qwen/qwen3.6-27b">qwen/qwen3.6-27b</option>
+          <option value="meta-llama/llama-4-scout-17b-16e-instruct">meta-llama/llama-4-scout-17b-16e-instruct</option>
+          <option value="__custom__">Otro (escribir manualmente)...</option>
+        </select>
+        <input id="cfg-groqModel-custom" type="text" placeholder="nombre exacto del modelo" style="display:none;margin-top:8px" />
 
         <label>OpenAI API Key</label>
         <input id="cfg-openaiApiKey" type="text" placeholder="sk-..." />
         <p class="hint small">¿No tienes clave de OpenAI? <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener">Consíguela aquí</a> (requiere cuenta con saldo cargado).</p>
         <label>Modelo de OpenAI</label>
-        <input id="cfg-openaiModel" type="text" />
+        <select id="cfg-openaiModel">
+          <option value="gpt-5.4-mini">gpt-5.4-mini (recomendado: rápido y barato)</option>
+          <option value="gpt-5.4">gpt-5.4 (más potente, más caro)</option>
+          <option value="gpt-5.4-nano">gpt-5.4-nano (el más económico)</option>
+          <option value="__custom__">Otro (escribir manualmente)...</option>
+        </select>
+        <input id="cfg-openaiModel-custom" type="text" placeholder="nombre exacto del modelo" style="display:none;margin-top:8px" />
 
         <button id="saveConfigBtn" class="save-btn">Guardar configuración</button>
         <span id="configSaved" class="saved-msg"></span>

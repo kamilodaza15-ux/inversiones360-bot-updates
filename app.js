@@ -152,9 +152,41 @@ fetch('/api/status').then((r) => r.json()).then((d) => setStatus(d.status));
 // ---------- Configuración ----------
 const cfgFields = [
   'assistantName', 'companyName', 'welcomeMessage', 'baseInstructions',
-  'responseDelaySeconds', 'aiProvider', 'groqApiKey', 'groqModel',
-  'openaiApiKey', 'openaiModel',
+  'responseDelaySeconds', 'aiProvider', 'groqApiKey',
+  'openaiApiKey',
 ];
+// groqModel y openaiModel se manejan aparte porque son selects con opción
+// "otro personalizado" (por si el modelo que quieren no está en la lista).
+
+function setupModelSelect(selectId, customId, value) {
+  const select = document.getElementById(selectId);
+  const custom = document.getElementById(customId);
+  const knownValues = Array.from(select.options)
+    .map((o) => o.value)
+    .filter((v) => v !== '__custom__');
+  if (value && !knownValues.includes(value)) {
+    select.value = '__custom__';
+    custom.value = value;
+    custom.style.display = 'block';
+  } else {
+    select.value = value || knownValues[0] || '';
+    custom.style.display = 'none';
+  }
+}
+
+function getModelValue(selectId, customId) {
+  const select = document.getElementById(selectId);
+  const custom = document.getElementById(customId);
+  return select.value === '__custom__' ? custom.value.trim() : select.value;
+}
+
+['cfg-groqModel', 'cfg-openaiModel'].forEach((selectId) => {
+  const select = document.getElementById(selectId);
+  const custom = document.getElementById(`${selectId}-custom`);
+  select.addEventListener('change', () => {
+    custom.style.display = select.value === '__custom__' ? 'block' : 'none';
+  });
+});
 
 async function loadConfig() {
   const cfg = await fetch('/api/config').then((r) => r.json());
@@ -162,6 +194,8 @@ async function loadConfig() {
     const el = document.getElementById(`cfg-${f}`);
     if (el) el.value = cfg[f] ?? '';
   });
+  setupModelSelect('cfg-groqModel', 'cfg-groqModel-custom', cfg.groqModel);
+  setupModelSelect('cfg-openaiModel', 'cfg-openaiModel-custom', cfg.openaiModel);
 }
 loadConfig();
 
@@ -171,6 +205,8 @@ document.getElementById('saveConfigBtn').addEventListener('click', async () => {
     const el = document.getElementById(`cfg-${f}`);
     body[f] = f === 'responseDelaySeconds' ? Number(el.value) : el.value;
   });
+  body.groqModel = getModelValue('cfg-groqModel', 'cfg-groqModel-custom');
+  body.openaiModel = getModelValue('cfg-openaiModel', 'cfg-openaiModel-custom');
   await fetch('/api/config', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
